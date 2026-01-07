@@ -1,7 +1,7 @@
 "use client";
 
-import Filters from "@/components/Filters";
-import ProductCard from "@/components/ProductCard";
+import Filters from "@/components/custom/Filter/Filters";
+import ProductCard from "@/components/custom/ProductCard/ProductCard";
 import { useCart } from "@/context/CartContext";
 import { products } from "@/data/products";
 import { Filter, X } from "lucide-react";
