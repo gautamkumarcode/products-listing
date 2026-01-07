@@ -16,15 +16,13 @@ export default function ProductCard({
 		<div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
 			<Link href={`/product/${product.id}`}>
 				<div className="aspect-square bg-gray-100 relative flex items-center justify-center">
-					<div className="w-48 h-48 relative">
-						<Image
-							src={product.image}
-							alt={product.title}
-							fill
-							className="object-contain"
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
-					</div>
+					<Image
+						src={product.image}
+						alt={product.title}
+						fill
+						className="object-contain"
+						// sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+					/>
 				</div>
 			</Link>
 

@@ -6,6 +6,7 @@ export const products: Product[] = [
 		title: "Running Shoes",
 		price: 99,
 		category: "Clothing",
+		brand: "Nike",
 		image:
 			"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop",
 		images: [
@@ -22,6 +23,7 @@ export const products: Product[] = [
 		title: "Wireless Headphones",
 		price: 149,
 		category: "Electronics",
+		brand: "Sony",
 		image:
 			"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
 		images: [
@@ -38,6 +40,7 @@ export const products: Product[] = [
 		title: "Backpack",
 		price: 129,
 		category: "Clothing",
+		brand: "North Face",
 		image:
 			"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop",
 		images: [
@@ -54,6 +57,7 @@ export const products: Product[] = [
 		title: "Smartwatch",
 		price: 249,
 		category: "Electronics",
+		brand: "Apple",
 		image:
 			"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&h=500&fit=crop",
 		images: [
@@ -70,6 +74,7 @@ export const products: Product[] = [
 		title: "Sunglasses",
 		price: 149,
 		category: "Clothing",
+		brand: "Ray-Ban",
 		image:
 			"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop",
 		images: [
@@ -86,6 +91,7 @@ export const products: Product[] = [
 		title: "Digital Camera",
 		price: 499,
 		category: "Electronics",
+		brand: "Canon",
 		image:
 			"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&h=500&fit=crop",
 		images: [
@@ -102,6 +108,7 @@ export const products: Product[] = [
 		title: "T-shirt",
 		price: 29,
 		category: "Clothing",
+		brand: "H&M",
 		image:
 			"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop",
 		images: [
@@ -118,6 +125,7 @@ export const products: Product[] = [
 		title: "Smartphone",
 		price: 699,
 		category: "Electronics",
+		brand: "Samsung",
 		image:
 			"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop",
 		images: [
@@ -134,6 +142,7 @@ export const products: Product[] = [
 		title: "Laptop",
 		price: 899,
 		category: "Electronics",
+		brand: "Dell",
 		image:
 			"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop",
 		images: [
@@ -150,6 +159,7 @@ export const products: Product[] = [
 		title: "Leather Jacket",
 		price: 199,
 		category: "Clothing",
+		brand: "Zara",
 		image:
 			"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=500&fit=crop",
 		images: [
@@ -166,6 +176,7 @@ export const products: Product[] = [
 		title: "Coffee Maker",
 		price: 79,
 		category: "Home",
+		brand: "Cuisinart",
 		image:
 			"https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&h=500&fit=crop",
 		images: [
@@ -182,6 +193,7 @@ export const products: Product[] = [
 		title: "Desk Lamp",
 		price: 45,
 		category: "Home",
+		brand: "Philips",
 		image:
 			"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&h=500&fit=crop",
 		images: [
@@ -198,6 +210,7 @@ export const products: Product[] = [
 		title: "Wireless Mouse",
 		price: 35,
 		category: "Electronics",
+		brand: "Logitech",
 		image:
 			"https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
 		images: [
@@ -214,6 +227,7 @@ export const products: Product[] = [
 		title: "Yoga Mat",
 		price: 39,
 		category: "Home",
+		brand: "Lululemon",
 		image:
 			"https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&h=500&fit=crop",
 		images: [
@@ -230,6 +244,7 @@ export const products: Product[] = [
 		title: "Bluetooth Speaker",
 		price: 89,
 		category: "Electronics",
+		brand: "JBL",
 		image:
 			"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=500&fit=crop",
 		images: [
@@ -246,6 +261,7 @@ export const products: Product[] = [
 		title: "Wall Clock",
 		price: 32,
 		category: "Home",
+		brand: "IKEA",
 		image:
 			"https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500&h=500&fit=crop",
 		images: [
