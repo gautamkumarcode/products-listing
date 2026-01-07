@@ -1,3 +1,4 @@
+import Footer from "@/components/custom/Footer/Footer";
 import Header from "@/components/custom/Header/Header";
 import { CartProvider } from "@/context/CartContext";
 import type { Metadata } from "next";
@@ -27,10 +28,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
 				<CartProvider>
 					<Header />
-					{children}
+					<main className="flex-1">{children}</main>
+					<Footer />
 				</CartProvider>
 			</body>
 		</html>

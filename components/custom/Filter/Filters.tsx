@@ -40,11 +40,9 @@ export default function Filters({
 
 	return (
 		<div className="space-y-6">
-			{/* Filters Card */}
 			<div className="bg-[#0C5BA0] text-white rounded-lg p-6">
 				<h2 className="text-xl font-bold mb-6">Filters</h2>
 
-				{/* Category Filter */}
 				<div className="mb-6">
 					<h3 className="text-base font-semibold mb-3">Category</h3>
 					<div className="space-y-2">
@@ -68,7 +66,6 @@ export default function Filters({
 					</div>
 				</div>
 
-				{/* Price Range Filter */}
 				<div>
 					<h3 className="text-base font-semibold mb-3">Price</h3>
 					<div className="space-y-3">
@@ -89,7 +86,6 @@ export default function Filters({
 					</div>
 				</div>
 
-				{/* Brand Filter */}
 				<div className="pt-4 border-t border-white/20">
 					<h3 className="text-base font-semibold mb-3">Brand</h3>
 					<div className="space-y-2 max-h-48 overflow-y-auto">

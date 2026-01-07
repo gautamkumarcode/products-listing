@@ -41,13 +41,10 @@ export default function CheckoutPage() {
 		e.preventDefault();
 		setIsProcessing(true);
 
-		// Simulate payment processing
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 
-		// Generate order number
 		const orderNumber = `ORD-${Date.now()}`;
 
-		// Clear cart and redirect to success page
 		clearCart();
 		router.push(`/success?order=${orderNumber}`);
 	};
@@ -89,10 +86,8 @@ export default function CheckoutPage() {
 				</div>
 
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-					{/* Checkout Form */}
 					<div className="lg:col-span-2">
 						<form onSubmit={handleSubmit} className="space-y-6">
-							{/* Contact Information */}
 							<div className="bg-white rounded-lg p-6 shadow-sm">
 								<h2 className="text-xl font-semibold text-gray-800 mb-4">
 									Contact Information
@@ -165,7 +160,6 @@ export default function CheckoutPage() {
 								</div>
 							</div>
 
-							{/* Shipping Address */}
 							<div className="bg-white rounded-lg p-6 shadow-sm">
 								<h2 className="text-xl font-semibold text-gray-800 mb-4">
 									Shipping Address
@@ -240,7 +234,6 @@ export default function CheckoutPage() {
 								</div>
 							</div>
 
-							{/* Payment Method */}
 							<div className="bg-white rounded-lg p-6 shadow-sm">
 								<h2 className="text-xl font-semibold text-gray-800 mb-4">
 									Payment Method
@@ -305,7 +298,6 @@ export default function CheckoutPage() {
 						</form>
 					</div>
 
-					{/* Order Summary */}
 					<div className="lg:col-span-1">
 						<div className="bg-white rounded-lg p-6 shadow-sm sticky top-24">
 							<h2 className="text-xl font-semibold text-gray-800 mb-4">
@@ -315,7 +307,7 @@ export default function CheckoutPage() {
 							<div className="space-y-4 mb-6">
 								{cart.map((item) => (
 									<div key={item.id} className="flex gap-3">
-										<div className="relative w-16 h-16 flex-shrink-0">
+										<div className="relative w-16 h-16 shrink-0">
 											<Image
 												src={item.image}
 												alt={item.title}

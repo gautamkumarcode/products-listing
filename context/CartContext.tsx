@@ -1,18 +1,18 @@
 "use client";
 
 import {
-	CartItem,
-	cartReducer,
-	initialCartState,
+    CartItem,
+    cartReducer,
+    initialCartState,
 } from "@/reducers/cartReducer";
 import { Product } from "@/types";
 import React, {
-	createContext,
-	useContext,
-	useEffect,
-	useMemo,
-	useReducer,
-	useState,
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useReducer,
+    useState,
 } from "react";
 
 interface CartContextType {
@@ -31,7 +31,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 	const [state, dispatch] = useReducer(cartReducer, initialCartState);
 	const [mounted, setMounted] = useState(false);
 
-	// Load cart from localStorage on mount
 	useEffect(() => {
 		setMounted(true);
 		const savedCart = localStorage.getItem("cart");
@@ -47,14 +46,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		}
 	}, []);
 
-	// Save cart to localStorage whenever it changes
 	useEffect(() => {
 		if (mounted) {
 			localStorage.setItem("cart", JSON.stringify(state.cart));
 		}
 	}, [state.cart, mounted]);
 
-	// Cart actions
 	const addToCart = (product: Product) => {
 		dispatch({ type: "ADD_TO_CART", payload: product });
 	};
@@ -71,7 +68,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		dispatch({ type: "CLEAR_CART" });
 	};
 
-	// Memoized calculations
 	const cartCount = useMemo(
 		() => state.cart.reduce((total, item) => total + item.quantity, 0),
 		[state.cart]

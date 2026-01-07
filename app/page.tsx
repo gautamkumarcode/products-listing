@@ -37,7 +37,6 @@ export default function Home() {
 				<div className="flex items-center justify-between mb-6">
 					<h1 className="text-3xl font-bold text-gray-800">Product Listing</h1>
 
-					{/* Mobile Filter Toggle */}
 					<button
 						onClick={() => setShowFilters(!showFilters)}
 						className="lg:hidden flex items-center gap-2 bg-[#0C5BA0] text-white px-4 py-2 rounded-md hover:bg-[#094A85]">
@@ -47,7 +46,6 @@ export default function Home() {
 				</div>
 
 				<div className="flex gap-6 relative">
-					{/* Sidebar */}
 					<aside
 						className={`${
 							showFilters ? "block" : "hidden"
@@ -75,7 +73,6 @@ export default function Home() {
 						</div>
 					</aside>
 
-					{/* Products Grid */}
 					<div className="flex-1">
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{filteredProducts.map((product) => (

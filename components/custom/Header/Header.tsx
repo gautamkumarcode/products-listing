@@ -10,12 +10,10 @@ export default function Header() {
 	return (
 		<header className="bg-[#0C5BA0] text-white">
 			<div className="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
-				{/* Logo */}
 				<Link href="/" className="text-2xl font-bold">
 					Logo
 				</Link>
 
-				{/* Search Bar */}
 				<div className="flex-1 max-w-md mx-4">
 					<div className="relative">
 						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -27,7 +25,6 @@ export default function Header() {
 					</div>
 				</div>
 
-				{/* Cart */}
 				<Link
 					href="/cart"
 					className="flex items-center gap-2 bg-[#0C5BA0] hover:bg-[#094A85] px-4 py-2 rounded-md border border-white transition-colors relative">

@@ -6,14 +6,12 @@ interface PageProps {
 	params: Promise<{ id: string }>;
 }
 
-// Generate static params for all products
 export async function generateStaticParams() {
 	return products.map((product) => ({
 		id: product.id,
 	}));
 }
 
-// Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps) {
 	const { id } = await params;
 	const product = products.find((p) => p.id === id);
