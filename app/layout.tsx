@@ -1,6 +1,7 @@
 import Footer from "@/components/custom/Footer/Footer";
 import Header from "@/components/custom/Header/Header";
 import { CartProvider } from "@/context/CartContext";
+import { SearchProvider } from "@/context/SearchContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -30,9 +31,11 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
 				<CartProvider>
-					<Header />
-					<main className="flex-1">{children}</main>
-					<Footer />
+					<SearchProvider>
+						<Header />
+						<main className="flex-1">{children}</main>
+						<Footer />
+					</SearchProvider>
 				</CartProvider>
 			</body>
 		</html>

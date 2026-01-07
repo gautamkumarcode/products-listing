@@ -1,11 +1,13 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useSearch } from "@/context/SearchContext";
 import { Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 export default function Header() {
 	const { cartCount } = useCart();
+	const { searchQuery, setSearchQuery } = useSearch();
 
 	return (
 		<header className="bg-[#0C5BA0] text-white">
@@ -20,6 +22,8 @@ export default function Header() {
 						<input
 							type="text"
 							placeholder="Search for products..."
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
 							className="w-full pl-10 pr-4 py-2 rounded-md border border-blue-300 focus:outline-none focus:border-blue-500 text-white bg-[#0C5BA0] placeholder-gray-200"
 						/>
 					</div>

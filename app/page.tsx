@@ -3,17 +3,78 @@
 import Filters from "@/components/custom/Filter/Filters";
 import ProductCard from "@/components/custom/ProductCard/ProductCard";
 import { useCart } from "@/context/CartContext";
+import { useSearch } from "@/context/SearchContext";
 import { products } from "@/data/products";
 import { Filter, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Home() {
-	const [selectedCategory, setSelectedCategory] = useState("All");
-	const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-	const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-	const [searchQuery, setSearchQuery] = useState("");
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const {
+		searchQuery,
+		setSearchQuery,
+		selectedCategory,
+		setSelectedCategory,
+		selectedBrands,
+		setSelectedBrands,
+		priceRange,
+		setPriceRange,
+	} = useSearch();
+
 	const [showFilters, setShowFilters] = useState(false);
 	const { addToCart } = useCart();
+
+	useEffect(() => {
+		const category = searchParams.get("category") || "All";
+		const brands = searchParams.get("brands")?.split(",").filter(Boolean) || [];
+		const price = searchParams.get("price");
+		const search = searchParams.get("search") || "";
+
+		setSelectedCategory(category);
+		setSelectedBrands(brands);
+		setSearchQuery(search);
+
+		if (price) {
+			const [min, max] = price.split("-").map(Number);
+			if (!isNaN(min) && !isNaN(max)) {
+				setPriceRange([min, max]);
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+
+		if (selectedCategory !== "All") {
+			params.set("category", selectedCategory);
+		}
+
+		if (selectedBrands.length > 0) {
+			params.set("brands", selectedBrands.join(","));
+		}
+
+		if (priceRange[0] !== 0 || priceRange[1] !== 1000) {
+			params.set("price", `${priceRange[0]}-${priceRange[1]}`);
+		}
+
+		if (searchQuery) {
+			params.set("search", searchQuery);
+		}
+
+		const queryString = params.toString();
+		const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+		router.push(newUrl, { scroll: false });
+	}, [
+		selectedCategory,
+		selectedBrands,
+		priceRange,
+		searchQuery,
+		pathname,
+		router,
+	]);
 
 	const filteredProducts = useMemo(() => {
 		return products.filter((product) => {
