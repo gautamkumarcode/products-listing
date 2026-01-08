@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { Product } from "@/types";
+import { Product, UserRating } from "@/types";
 import {
 	ArrowLeft,
 	Heart,
@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import RatingSystem from "../RatingSystem/RatingSystem";
 
 interface ProductDetailClientProps {
 	product: Product;
@@ -27,9 +28,67 @@ export default function ProductDetailClient({
 	const [selectedImage, setSelectedImage] = useState(0);
 	const [quantity, setQuantity] = useState(1);
 	const [isAdding, setIsAdding] = useState(false);
+	const [userRatings, setUserRatings] = useState<UserRating[]>([]);
+	const [currentUserRating, setCurrentUserRating] = useState<
+		number | undefined
+	>();
+	const [averageRating, setAverageRating] = useState(product.rating || 0);
 
 	const images = product.images || [product.image];
 	const liked = isLiked(product.id);
+
+	useEffect(() => {
+		const savedRatings = localStorage.getItem(`ratings_${product.id}`);
+		if (savedRatings) {
+			const ratings: UserRating[] = JSON.parse(savedRatings);
+			setUserRatings(ratings);
+
+			if (ratings.length > 0) {
+				const avg =
+					ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length;
+				setAverageRating(avg);
+			}
+
+			const userId = localStorage.getItem("userId") || "anonymous";
+			const userRating = ratings.find((r) => r.userId === userId);
+			if (userRating) {
+				setCurrentUserRating(userRating.rating);
+			}
+		}
+	}, [product.id]);
+
+	const handleRatingSubmit = async (rating: number, comment: string) => {
+		let userId = localStorage.getItem("userId");
+		if (!userId) {
+			userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+			localStorage.setItem("userId", userId);
+		}
+
+		const newRating: UserRating = {
+			userId,
+			rating,
+			comment,
+			date: new Date().toISOString(),
+		};
+
+		const updatedRatings = userRatings.filter((r) => r.userId !== userId);
+		updatedRatings.push(newRating);
+
+		setUserRatings(updatedRatings);
+		setCurrentUserRating(rating);
+
+		const avg =
+			updatedRatings.reduce((sum, r) => sum + r.rating, 0) /
+			updatedRatings.length;
+		setAverageRating(avg);
+
+		localStorage.setItem(
+			`ratings_${product.id}`,
+			JSON.stringify(updatedRatings)
+		);
+
+		await new Promise((resolve) => setTimeout(resolve, 500));
+	};
 
 	const handleAddToCart = () => {
 		setIsAdding(true);
@@ -111,14 +170,14 @@ export default function ProductDetailClient({
 								{product.title}
 							</h1>
 
-							{product.rating && (
+							{averageRating > 0 && (
 								<div className="flex items-center gap-2 mb-4">
 									<div className="flex items-center">
 										{[...Array(5)].map((_, i) => (
 											<Star
 												key={i}
 												className={`w-5 h-5 ${
-													i < Math.floor(product.rating!)
+													i < Math.floor(averageRating)
 														? "text-yellow-400 fill-yellow-400"
 														: "text-gray-300"
 												}`}
@@ -126,7 +185,11 @@ export default function ProductDetailClient({
 										))}
 									</div>
 									<span className="text-gray-600 font-medium">
-										{product.rating.toFixed(1)}
+										{averageRating.toFixed(1)}
+									</span>
+									<span className="text-gray-500 text-sm">
+										({userRatings.length}{" "}
+										{userRatings.length === 1 ? "review" : "reviews"})
 									</span>
 								</div>
 							)}
@@ -234,6 +297,67 @@ export default function ProductDetailClient({
 						</div>
 					</div>
 				</div>
+
+				<div className="mt-8">
+					<RatingSystem
+						currentRating={averageRating}
+						totalRatings={userRatings.length}
+						userRating={currentUserRating}
+						onRatingSubmit={handleRatingSubmit}
+					/>
+				</div>
+
+				{userRatings.length > 0 && (
+					<div className="mt-8 bg-white rounded-lg p-6 shadow-sm">
+						<h3 className="text-xl font-semibold text-gray-800 mb-6">
+							Customer Reviews
+						</h3>
+						<div className="space-y-6">
+							{userRatings
+								.slice()
+								.reverse()
+								.map((review, index) => (
+									<div
+										key={index}
+										className="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
+										<div className="flex items-start justify-between mb-3">
+											<div>
+												<div className="flex items-center gap-2 mb-2">
+													<div className="flex items-center">
+														{[...Array(5)].map((_, i) => (
+															<Star
+																key={i}
+																className={`w-4 h-4 ${
+																	i < review.rating
+																		? "text-yellow-400 fill-yellow-400"
+																		: "text-gray-300"
+																}`}
+															/>
+														))}
+													</div>
+													<span className="text-sm font-semibold text-gray-800">
+														{review.rating}.0
+													</span>
+												</div>
+												<p className="text-sm text-gray-600">
+													{new Date(review.date).toLocaleDateString("en-US", {
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													})}
+												</p>
+											</div>
+										</div>
+										{review.comment && (
+											<p className="text-gray-700 leading-relaxed">
+												{review.comment}
+											</p>
+										)}
+									</div>
+								))}
+						</div>
+					</div>
+				)}
 			</main>
 		</div>
 	);

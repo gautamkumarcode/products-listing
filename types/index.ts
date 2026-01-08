@@ -8,4 +8,12 @@ export interface Product {
 	images?: string[];
 	description?: string;
 	rating?: number;
+	userRatings?: UserRating[];
+}
+
+export interface UserRating {
+	userId: string;
+	rating: number;
+	comment?: string;
+	date: string;
 }
