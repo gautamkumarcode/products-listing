@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { useSearch } from "@/context/SearchContext";
-import { Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart, UserCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Header() {
@@ -29,17 +29,24 @@ export default function Header() {
 					</div>
 				</div>
 
-				<Link
-					href="/cart"
-					className="flex items-center gap-2 bg-[#0C5BA0] hover:bg-[#094A85] px-4 py-2 rounded-md border border-white transition-colors relative">
-					<ShoppingCart className="w-5 h-5" />
-					<span className="font-medium">Cart</span>
-					{cartCount > 0 && (
-						<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-							{cartCount}
-						</span>
-					)}
-				</Link>
+				<div className="flex items-center gap-4">
+					<Link
+						href="/cart"
+						className="flex items-center gap-2 bg-[#0C5BA0] hover:bg-[#094A85] px-4 py-2 rounded-md border border-white transition-colors relative">
+						<ShoppingCart className="w-5 h-5" />
+						<span className="font-medium hidden sm:inline">Cart</span>
+						{cartCount > 0 && (
+							<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+								{cartCount}
+							</span>
+						)}
+					</Link>
+
+					<button className="flex items-center gap-2 hover:bg-[#094A85] px-3 py-2 rounded-md transition-colors">
+						<UserCircle className="w-8 h-8" />
+						<span className="font-medium hidden md:inline">Account</span>
+					</button>
+				</div>
 			</div>
 		</header>
 	);
