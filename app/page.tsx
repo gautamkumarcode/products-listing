@@ -7,9 +7,9 @@ import { useSearch } from "@/context/SearchContext";
 import { products } from "@/data/products";
 import { Filter, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
-export default function Home() {
+function HomeContent() {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -156,5 +156,18 @@ export default function Home() {
 				</div>
 			</main>
 		</div>
+	);
+}
+
+export default function Home() {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen bg-gray-100 flex items-center justify-center">
+					Loading...
+				</div>
+			}>
+			<HomeContent />
+		</Suspense>
 	);
 }
