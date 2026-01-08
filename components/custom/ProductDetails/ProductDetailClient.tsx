@@ -23,12 +23,13 @@ interface ProductDetailClientProps {
 export default function ProductDetailClient({
 	product,
 }: ProductDetailClientProps) {
-	const { addToCart } = useCart();
+	const { addToCart, isLiked, toggleLike } = useCart();
 	const [selectedImage, setSelectedImage] = useState(0);
 	const [quantity, setQuantity] = useState(1);
 	const [isAdding, setIsAdding] = useState(false);
 
 	const images = product.images || [product.image];
+	const liked = isLiked(product.id);
 
 	const handleAddToCart = () => {
 		setIsAdding(true);
@@ -191,8 +192,14 @@ export default function ProductDetailClient({
 										</>
 									)}
 								</button>
-								<button className="p-4 border-2 border-gray-300 rounded-md hover:border-[#0C5BA0] hover:text-[#0C5BA0] transition-colors">
-									<Heart className="w-6 h-6" />
+								<button
+									onClick={() => toggleLike(product)}
+									className={`p-4 border-2 rounded-md transition-all ${
+										liked
+											? "bg-red-500 border-red-500 text-white"
+											: "border-gray-300 hover:border-[#0C5BA0] hover:text-[#0C5BA0]"
+									}`}>
+									<Heart className={`w-6 h-6 ${liked ? "fill-white" : ""}`} />
 								</button>
 							</div>
 						</div>

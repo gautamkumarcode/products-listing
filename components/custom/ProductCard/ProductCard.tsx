@@ -1,5 +1,6 @@
+import { useCart } from "@/context/CartContext";
 import { Product } from "@/types";
-import { IndianRupee, Star } from "lucide-react";
+import { Heart, IndianRupee, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,16 +13,31 @@ export default function ProductCard({
 	product,
 	onAddToCart,
 }: ProductCardProps) {
+	const { isLiked, toggleLike } = useCart();
+	const liked = isLiked(product.id);
+
 	return (
 		<div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
 			<Link href={`/product/${product.id}`}>
-				<div className="aspect-square bg-gray-100 relative flex items-center justify-center">
+				<div className="aspect-square bg-gray-100 relative flex items-center justify-center group">
 					<Image
 						src={product.image}
 						alt={product.title}
 						fill
 						className="object-contain"
 					/>
+					<button
+						onClick={(e) => {
+							e.preventDefault();
+							toggleLike(product);
+						}}
+						className={`absolute top-3 right-3 p-2 rounded-full transition-all ${
+							liked
+								? "bg-red-500 text-white"
+								: "bg-white/80 text-gray-600 hover:bg-white"
+						}`}>
+						<Heart className={`w-5 h-5 ${liked ? "fill-white" : ""}`} />
+					</button>
 				</div>
 			</Link>
 

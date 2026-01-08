@@ -32,7 +32,7 @@ export default function Header() {
 				<div className="flex items-center gap-4">
 					<Link
 						href="/cart"
-						className="flex items-center gap-2 bg-[#0C5BA0] hover:bg-[#094A85] px-4 py-2 rounded-md border border-white transition-colors relative">
+						className="flex items-center gap-2 bg-[#003d7a] hover:bg-[#002855] px-4 py-2 rounded-md transition-colors relative">
 						<ShoppingCart className="w-5 h-5" />
 						<span className="font-medium hidden sm:inline">Cart</span>
 						{cartCount > 0 && (
@@ -42,9 +42,8 @@ export default function Header() {
 						)}
 					</Link>
 
-					<button className="flex items-center gap-2 hover:bg-[#094A85] px-3 py-2 rounded-md transition-colors">
+					<button className="flex items-center gap-2 hover:bg-[#002B59] px-3 py-2 rounded-md transition-colors">
 						<UserCircle className="w-8 h-8" />
-						<span className="font-medium hidden md:inline">Account</span>
 					</button>
 				</div>
 			</div>

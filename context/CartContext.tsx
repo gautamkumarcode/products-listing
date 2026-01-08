@@ -23,6 +23,12 @@ interface CartContextType {
 	clearCart: () => void;
 	cartCount: number;
 	cartTotal: number;
+	likes: Product[];
+	addLike: (product: Product) => void;
+	removeLike: (productId: string) => void;
+	isLiked: (productId: string) => boolean;
+	toggleLike: (product: Product) => void;
+	likesCount: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -44,6 +50,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 				console.error("Failed to parse cart from localStorage:", error);
 			}
 		}
+
+		const savedLikes = localStorage.getItem("likes");
+		if (savedLikes) {
+			try {
+				const parsed = JSON.parse(savedLikes);
+				if (Array.isArray(parsed)) {
+					dispatch({ type: "SET_LIKES", payload: parsed });
+				}
+			} catch (error) {
+				console.error("Failed to parse likes from localStorage:", error);
+			}
+		}
 	}, []);
 
 	useEffect(() => {
@@ -51,6 +69,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 			localStorage.setItem("cart", JSON.stringify(state.cart));
 		}
 	}, [state.cart, mounted]);
+
+	useEffect(() => {
+		if (mounted) {
+			localStorage.setItem("likes", JSON.stringify(state.likes));
+		}
+	}, [state.likes, mounted]);
 
 	const addToCart = (product: Product) => {
 		dispatch({ type: "ADD_TO_CART", payload: product });
@@ -79,6 +103,28 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		[state.cart]
 	);
 
+	const addLike = (product: Product) => {
+		dispatch({ type: "ADD_LIKE", payload: product });
+	};
+
+	const removeLike = (productId: string) => {
+		dispatch({ type: "REMOVE_LIKE", payload: productId });
+	};
+
+	const isLiked = (productId: string) => {
+		return state.likes.some((item) => item.id === productId);
+	};
+
+	const toggleLike = (product: Product) => {
+		if (isLiked(product.id)) {
+			removeLike(product.id);
+		} else {
+			addLike(product);
+		}
+	};
+
+	const likesCount = useMemo(() => state.likes.length, [state.likes]);
+
 	return (
 		<CartContext.Provider
 			value={{
@@ -89,6 +135,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 				clearCart,
 				cartCount,
 				cartTotal,
+				likes: state.likes,
+				addLike,
+				removeLike,
+				isLiked,
+				toggleLike,
+				likesCount,
 			}}>
 			{children}
 		</CartContext.Provider>
